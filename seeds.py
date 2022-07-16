@@ -1,4 +1,4 @@
-from app.models import User, Post
+from app.models import User, Post, Comment, Vote
 from app.db import Session, Base, engine
 
 #drop and rebuild the tables being imported
@@ -15,6 +15,8 @@ db.add_all([
   User(username='dstanmer3', email='ihellier3@goo.ne.jp', password='password123'),
   User(username='djiri4', email='gmidgley4@weather.com', password='password123')
 ])
+#nessecary after every seed
+db.commit()
 
 # inserts Posts to tables
 db.add_all([
@@ -23,6 +25,26 @@ db.add_all([
   Post(title='Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue', post_url='https://europa.eu/parturient/montes/nascetur/ridiculus/mus/etiam/vel.aspx', user_id=2),
   Post(title='Nunc purus', post_url='http://desdev.cn/enim/blandit/mi.jpg', user_id=3),
   Post(title='Pellentesque eget nunc', post_url='http://google.ca/nam/nulla/integer.aspx', user_id=4)
+])
+
+db.commit()
+
+db.add_all([
+  Comment(comment_text='Nunc rhoncus dui vel sem.', user_id=1, post_id=2),
+  Comment(comment_text='Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', user_id=1, post_id=3),
+  Comment(comment_text='Aliquam erat volutpat. In congue.', user_id=2, post_id=1),
+  Comment(comment_text='Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.', user_id=2, post_id=3),
+  Comment(comment_text='In hac habitasse platea dictumst.', user_id=3, post_id=3)
+])
+
+db.commit()
+
+db.add_all([
+  Vote(user_id=1, post_id=2),
+  Vote(user_id=1, post_id=4),
+  Vote(user_id=2, post_id=4),
+  Vote(user_id=3, post_id=4),
+  Vote(user_id=4, post_id=2)
 ])
 
 db.commit()
